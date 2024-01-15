@@ -166,7 +166,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c1252015b940fc4eb16f2c133ab6584, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHitPoints: 5
+  maxHitPoints: 3
+  difficultyRamp: 2
 --- !u!114 &4779045935679837986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,3 +180,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8df1a77b1492c6347867316511b23e1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  goldReward: 25
+  goldPenalty: 25
