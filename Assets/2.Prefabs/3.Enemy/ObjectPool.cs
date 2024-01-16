@@ -9,8 +9,9 @@ public class ObjectPool : MonoBehaviour
     [SerializeField][Range(0, 50f)] int poolSize = 5;
     [SerializeField][Range(0.1f, 30f)] float spawnTimer = 1f;
 
-    //GameObject[] pool;
-    List<GameObject> pool;
+    GameObject[] pool;
+
+    /*//List<GameObject> pool;
 
     void Awake()
     {
@@ -24,32 +25,32 @@ public class ObjectPool : MonoBehaviour
 
     void PopulatePool()
     {
-        /*pool = new GameObject[poolSize];
+        pool = new GameObject[poolSize];
 
-        for(int i =0; i < pool.Length; i++)
+        for (int i = 0; i < pool.Length; i++)
         {
             pool[i] = Instantiate(enemyPrefab, transform);
             pool[i].SetActive(false);
-        }*/
-        pool = new List<GameObject>();
+        }
+        *//*pool = new List<GameObject>();
 
         for (int i = 0; i < poolSize; i++)
         {
             AddObjectToPool();
-        }
+        }*//*
     }
 
     void EnableObjectInPool()
     {
-        /*for(int i = 0; i < pool.Length; i++)
+        for (int i = 0; i < pool.Length; i++)
         {
             if (pool[i].activeInHierarchy == false)
             {
                 pool[i].SetActive(true);
                 return;
             }
-        }*/
-        foreach (GameObject obj in pool)
+        }
+        *//*foreach (GameObject obj in pool)
         {
             if (!obj.activeInHierarchy)
             {
@@ -58,15 +59,56 @@ public class ObjectPool : MonoBehaviour
             }
         }
         
-        AddObjectToPool().SetActive(true);
+        AddObjectToPool().SetActive(true);*//*
     }
 
-    GameObject AddObjectToPool()
+    *//*GameObject AddObjectToPool()
     {
         GameObject newObject = Instantiate(enemyPrefab, transform);
         newObject.SetActive(false);
         pool.Add(newObject);
         return newObject;
+    }*//*
+
+    IEnumerator SpawnEnemy()
+    {
+        while (true)
+        {
+            EnableObjectInPool();
+            yield return new WaitForSeconds(spawnTimer);
+        }
+    }*/
+    void Awake()
+    {
+        PopulatePool();
+    }
+
+    void Start()
+    {
+        StartCoroutine(SpawnEnemy());
+    }
+
+    void PopulatePool()
+    {
+        pool = new GameObject[poolSize];
+
+        for (int i = 0; i < pool.Length; i++)
+        {
+            pool[i] = Instantiate(enemyPrefab, transform);
+            pool[i].SetActive(false);
+        }
+    }
+
+    void EnableObjectInPool()
+    {
+        for (int i = 0; i < pool.Length; i++)
+        {
+            if (pool[i].activeInHierarchy == false)
+            {
+                pool[i].SetActive(true);
+                return;
+            }
+        }
     }
 
     IEnumerator SpawnEnemy()
@@ -77,4 +119,5 @@ public class ObjectPool : MonoBehaviour
             yield return new WaitForSeconds(spawnTimer);
         }
     }
+
 }
