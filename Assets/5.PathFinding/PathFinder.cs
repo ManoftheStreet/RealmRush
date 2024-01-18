@@ -41,12 +41,17 @@ public class PathFinder : MonoBehaviour
 
     public List<Node> GetNewPath()
     {
+        return GetNewPath(startCoordinates);
+    }
+
+    public List<Node> GetNewPath(Vector2Int coordinates)
+    {
         gridManager.ResetNode();
-        BreadthFerstSearch();
+        BreadthFerstSearch(coordinates);
         return BuildPath();
     }
 
-    void BreadthFerstSearch()
+    void BreadthFerstSearch(Vector2Int coordinates)
     {
         startNode.isWalkable = true;
         destinationNode.isWalkable = true;
@@ -56,8 +61,8 @@ public class PathFinder : MonoBehaviour
 
         bool isRunning = true;//현재 운행중인지 확인하는 조건 변수
 
-        frontier.Enqueue(startNode);//현재 경계에 시작 노드를 넣고
-        reached.Add(startCoordinates, startNode);//이미 찾은 시작노드의 좌표와 노드를 키와 값으로 연결
+        frontier.Enqueue(grid[coordinates]);//현재 경계에 시작 노드를 넣고
+        reached.Add(coordinates, grid[coordinates]);//이미 찾은 시작노드의 좌표와 노드를 키와 값으로 연결
 
         while (frontier.Count > 0 && isRunning)//큐에 뭐가 있고 운행중이면
         {
@@ -139,6 +144,6 @@ public class PathFinder : MonoBehaviour
 
     public void NotifyReceivers()
     {
-        BroadcastMessage("RecalculatePath", SendMessageOptions.DontRequireReceiver);
+        BroadcastMessage("RecalculatePath", false, SendMessageOptions.DontRequireReceiver);
     }
 }
